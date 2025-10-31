@@ -105,7 +105,7 @@ public class SaleOrderLineGeneratorServiceImpl implements SaleOrderLineGenerator
       qty = BigDecimal.ONE;
     }
     saleOrderLine.setQty(qty);
-    saleOrderLineOnProductChangeService.computeLineFromProduct(saleOrder, saleOrderLine);
+    saleOrderLineOnProductChangeService.computeLineFromProduct(saleOrder, saleOrderLine, null);
 
     saleOrderLineRepository.save(saleOrderLine);
 

@@ -28,6 +28,7 @@ import com.axelor.apps.sale.db.SaleOrder;
 import com.axelor.apps.sale.db.SaleOrderLine;
 import com.axelor.apps.sale.service.app.AppSaleService;
 import com.axelor.apps.sale.service.saleorderline.product.SaleOrderLineProductService;
+import com.axelor.common.ObjectUtils;
 import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -71,16 +72,19 @@ public class SaleOrderLineCostPriceComputeServiceImpl
     LocalDate localDate = appSaleService.getTodayDate(saleOrder.getCompany());
     BigDecimal costPrice = BigDecimal.ZERO;
     BigDecimal costTotal = BigDecimal.ZERO;
-    if (saleOrderLine.getSubSaleOrderLineList().isEmpty()) {
-      costPrice =
-          (BigDecimal) productCompanyService.get(saleOrderLine.getProduct(), "costPrice", company);
-      costPrice =
-          curryCurrencyService.getAmountCurrencyConvertedAtDate(
-              company.getCurrency(), saleOrder.getCurrency(), costPrice, localDate);
-      costTotal =
-          costPrice
-              .multiply(saleOrderLine.getQty())
-              .setScale(appSaleService.getNbDecimalDigitForUnitPrice(), RoundingMode.HALF_UP);
+    if (ObjectUtils.isEmpty(saleOrderLine.getSubSaleOrderLineList())) {
+      if (saleOrderLine.getProduct() != null) {
+        costPrice =
+            (BigDecimal)
+                productCompanyService.get(saleOrderLine.getProduct(), "costPrice", company);
+        costPrice =
+            curryCurrencyService.getAmountCurrencyConvertedAtDate(
+                company.getCurrency(), saleOrder.getCurrency(), costPrice, localDate);
+        costTotal =
+            costPrice
+                .multiply(saleOrderLine.getQty())
+                .setScale(appSaleService.getNbDecimalDigitForUnitPrice(), RoundingMode.HALF_UP);
+      }
       saleOrderLine.setCostPrice(costPrice);
       saleOrderLine.setCostTotal(costTotal);
     } else {

@@ -47,7 +47,12 @@ public class SaleOrderLineCostPriceComputeProductionServiceImpl
       CurrencyScaleService currencyScaleService,
       SaleOrderLineProductService saleOrderLineProductService,
       CurrencyService currencyService) {
-    super(appSaleService, productCompanyService, currencyScaleService, saleOrderLineProductService, currencyService);
+    super(
+        appSaleService,
+        productCompanyService,
+        currencyScaleService,
+        saleOrderLineProductService,
+        currencyService);
   }
 
   @Override
