@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_8.1.xsd">
+
+  <grid name="call-tender-attr-config-grid" title="Call tender attribute configuration"
+    model="com.axelor.apps.purchase.db.CallTenderAttrConfig">
+    <field name="product"/>
+  </grid>
+
+  <form name="call-tender-attr-config-form" title="Call tender attribute configuration"
+    model="com.axelor.apps.purchase.db.CallTenderAttrConfig">
+    <panel name="mainPanel" showTitle="false">
+      <field name="product" colSpan="12" domain="self.purchasable is true"/>
+      <panel-related field="customFieldList" colSpan="12"
+        form-view="call-tender-attr-config-custom-field-form"
+        grid-view="call-tender-attr-config-custom-field-grid"
+        domain="self.model = 'com.axelor.apps.purchase.db.CallTenderNeed'"/>
+    </panel>
+  </form>
+
+</object-views>

@@ -45,6 +45,8 @@
     <many-to-one name="callTender" ref="com.axelor.apps.purchase.db.CallTender"/>
     <many-to-one name="offerMail" ref="com.axelor.apps.purchase.db.CallTenderMail"/>
 
+    <string name="attrs" title="Attributes" json="true"/>
+
 
     <extra-code>
       <![CDATA[
